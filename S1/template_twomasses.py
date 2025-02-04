@@ -11,7 +11,7 @@
 from math import sin, cos, pi
 import numpy as np
 from scipy.integrate import solve_ivp
-
+from scipy.misc import derivative
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 class MBSData:
@@ -92,7 +92,7 @@ def sweep(t, t0, f0, t1, f1, Fmax):
 		
 	:return Fext: the value of the sweep function.
     """
-    return Fmax* np.sin(2*np.pi*(f0 + (((f1-f0)/(t1-t0))*t/2))*t)
+    return Fmax* sin(2*pi*(f0 + (((f1-f0)/(t1-t0))*t/2))*t)
 
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *    
@@ -114,8 +114,12 @@ def compute_derivatives(t, y, data):
         :param data: the MBSData object containing the parameters of the model
     """                 
     F =  sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
-    # sweep function should be called here: sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
-
+    F1 = data.k1*(data.z01-y[0]) + data.d1*y[2]
+    F2 = data.k2*(data.z02-y[1]) + data.d2*y[3]
+    Ftot1 = F1 + (data.m1 * data.g) - F2
+    Ftot2 = F2 + F + (data.m2 * data.g)
+    yd = [y[0], y[1], Ftot1/data.m1, Ftot2/data.m2]
+    return yd
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 def compute_dynamic_response(data):
@@ -128,8 +132,7 @@ def compute_dynamic_response(data):
  
        :param data: the MBSData object containing the parameters of the model
      """
-    # Write your code here
-    ............
+    fprime = lambda t,y: compute_derivatives(t, y, data)
     # ### Runge Kutta ###   should be called via solve_ivp()
     # to pass the MBSData object to compute_derivative function in solve_ivp, you may use lambda mechanism:
     #
@@ -140,7 +143,6 @@ def compute_dynamic_response(data):
     # Note that you can change the tolerances with rtol and atol options (see online solve_iv doc)
     #
     # Write some code here
-    ............
   
 
 
