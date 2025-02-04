@@ -66,6 +66,11 @@ class MBSData:
         self.k02 = 37000
         self.d2 = 4000
         self.z02 = 0.8
+        self.t0 = 0
+        self.t1 = 10
+        self.f0 =1
+        self.f1 = 10
+        self.Fmax = 10000
 
         self.q1 = 0.357445263
         self.q2 = 0.716482432
@@ -87,8 +92,7 @@ def sweep(t, t0, f0, t1, f1, Fmax):
 		
 	:return Fext: the value of the sweep function.
     """
-    # Write your code here
-    ............
+    return Fmax* np.sin(2*np.pi*(f0 + (((f1-f0)/(t1-t0))*t/2))*t)
 
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *    
