@@ -121,6 +121,7 @@ def compute_derivatives(t, y, data):
 
     q2dd = (- Fext + data.k02*(data.z02 - q2) - data.d2*(qd2 - qd1) - data.m2 * data.g)/data.m2
     q1dd = (data.k01*(data.z01 - q1) + data.d1*(qd1) - data.k02*(data.z02 - q2) + data.d2*(qd2 - qd1) - data.m1 * data.g)/data.m1
+    return np.array([qd1, qd2, q1dd, q2dd])
     
 
     # sweep function should be called here: sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
@@ -148,6 +149,7 @@ def compute_dynamic_response(data):
     # Note that you can change the tolerances with rtol and atol options (see online solve_iv doc)
     #
     # Write some code here
+
   
 
 
