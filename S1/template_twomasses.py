@@ -113,7 +113,16 @@ def compute_derivatives(t, y, data):
         :return: yd a numpy array containing the states derivatives  yd = [qd1, qd2, qdd1, qdd2]
         :param data: the MBSData object containing the parameters of the model
     """                 
-    F =  sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
+    Fext = sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
+    q1 = y[0]
+    q2 = y[1]
+    qd1 = y[2]
+    qd2 = y[3]
+
+    q2dd = (- Fext + data.k02*(data.z02 - q2) - data.d2*(qd2 - qd1) - data.m2 * data.g)/data.m2
+    q1dd = (data.k01*(data.z01 - q1) + data.d1*(qd1) - data.k02*(data.z02 - q2) + data.d2*(qd2 - qd1) - data.m1 * data.g)/data.m1
+    
+
     # sweep function should be called here: sweep(t, data.t0, data.f0, data.t1, data.f1, data.Fmax)
 
 
