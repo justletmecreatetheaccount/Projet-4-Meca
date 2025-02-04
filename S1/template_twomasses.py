@@ -119,8 +119,8 @@ def compute_derivatives(t, y, data):
     qd1 = y[2]
     qd2 = y[3]
 
-    q2dd = (- Fext + data.k02*(data.z02 - q2) - data.d2*(qd2 - qd1) - data.m2 * data.g)/data.m2
-    q1dd = (data.k01*(data.z01 - q1) - data.d1*(qd1) - data.k02*(data.z02 - q2) + data.d2*(qd2 - qd1) - data.m1 * data.g)/data.m1
+    q2dd = (- Fext + data.k02*(data.z02 - q2) - data.d2*(qd2) - data.m2 * data.g)/data.m2
+    q1dd = (data.k01*(data.z01 - q1) - data.d1*(qd1) - data.k02*(data.z02 - q2) + data.d2*(qd2) - data.m1 * data.g)/data.m1
     return np.array([qd1, qd2, q1dd, q2dd])
     
 
