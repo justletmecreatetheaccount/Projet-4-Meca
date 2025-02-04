@@ -60,10 +60,10 @@ class MBSData:
         self.g = 9.81
         self.m1 = 25
         self.m2 = 315
-        self.k01 = 190
+        self.k01 = 190000
         self.d1 = 107
         self.z01 = 0.375
-        self.k02 = 37
+        self.k02 = 37000
         self.d2 = 4000
         self.z02 = 0.8
         
