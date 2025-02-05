@@ -151,7 +151,10 @@ def compute_dynamic_response(data):
     # Write some code here
 
     sol = solve_ivp(fprime, (data.t0, data.t1), [data.q1, data.q2, 0, 0], t_eval=np.linspace(data.t0, data.t1, 1000))
-
+    np.savetxt("dirdyn_q.res", np.column_stack((sol.t, sol.y[0], sol.y[1])), comments='')
+    np.savetxt("dirdyn_qd.res", np.column_stack((sol.t, sol.y[2], sol.y[3])), comments='')
+    qdd = np.array([compute_derivatives(t, y, data)[2:] for t, y in zip(sol.t, sol.y.T)])
+    np.savetxt("dirdyn_qdd.res", np.column_stack((sol.t, qdd[:,0], qdd[:,1])), comments='')
         
 
   
